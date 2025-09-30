@@ -3,12 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <title>Zmeya</title>
+    <title>🐍 Snake Game - Современная версия</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="game" width="608" height="608"></canvas>
+    <div class="game-container">
+        <div class="header">
+            <h1>🐍 SNAKE GAME</h1>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-label">Очки:</span>
+                    <span id="score" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Рекорд:</span>
+                    <span id="highScore" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Уровень:</span>
+                    <span id="level" class="stat-value">1</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-wrapper">
+            <canvas id="gameCanvas" width="400" height="400"></canvas>
+            
+            <!-- Стартовый экран -->
+            <div id="startScreen" class="screen">
+                <h2>🎮 Готовы к игре?</h2>
+                <div class="instructions">
+                    <p>🎯 <strong>Цель:</strong> Собирайте еду и растите!</p>
+                    <p>⌨️ <strong>Управление:</strong> Стрелки или WASD</p>
+                    <p>🍎 <strong>Красная еда:</strong> +10 очков</p>
+                    <p>🟡 <strong>Золотая еда:</strong> +30 очков (редкая)</p>
+                    <p>⚡ <strong>Синяя еда:</strong> Ускорение на 3 сек</p>
+                    <p>🐌 <strong>Зеленая еда:</strong> Замедление на 3 сек</p>
+                </div>
+                <button id="startButton" class="btn">НАЧАТЬ ИГРУ</button>
+                <div class="mode-selector">
+                    <button class="mode-btn active" data-mode="classic">Классический</button>
+                    <button class="mode-btn" data-mode="portal">Порталы</button>
+                    <button class="mode-btn" data-mode="obstacles">Препятствия</button>
+                </div>
+            </div>
+
+            <!-- Экран паузы -->
+            <div id="pauseScreen" class="screen hidden">
+                <h2>⏸️ ПАУЗА</h2>
+                <p>Нажмите ПРОБЕЛ для продолжения</p>
+                <button id="resumeButton" class="btn">ПРОДОЛЖИТЬ</button>
+            </div>
+
+            <!-- Экран Game Over -->
+            <div id="gameOverScreen" class="screen hidden">
+                <h2>💀 ИГРА ОКОНЧЕНА</h2>
+                <div class="result">
+                    <p>Ваш результат: <span id="finalScore" class="highlight">0</span></p>
+                    <p>Лучший результат: <span id="finalHighScore" class="highlight">0</span></p>
+                    <p>Достигнутый уровень: <span id="finalLevel" class="highlight">1</span></p>
+                </div>
+                <div id="newRecordMessage" class="new-record hidden">
+                    🏆 НОВЫЙ РЕКОРД! 🏆
+                </div>
+                <button id="restartButton" class="btn">ИГРАТЬ СНОВА</button>
+                <button id="menuButton" class="btn btn-secondary">МЕНЮ</button>
+            </div>
+        </div>
+
+        <!-- Мобильное управление -->
+        <div id="mobileControls" class="mobile-controls">
+            <div class="control-row">
+                <button class="control-btn" data-direction="up">↑</button>
+            </div>
+            <div class="control-row">
+                <button class="control-btn" data-direction="left">←</button>
+                <button class="control-btn" data-direction="down">↓</button>
+                <button class="control-btn" data-direction="right">→</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <button id="pauseBtn" class="btn btn-small">⏸️ ПАУЗА</button>
+            <button id="soundBtn" class="btn btn-small">🔊 ЗВУК</button>
+        </div>
+    </div>
+
+    <!-- Контейнер для частиц -->
+    <div id="particles"></div>
+
     <script src="game.js"></script>
 </body>
 </html>
