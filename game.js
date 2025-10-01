@@ -212,7 +212,6 @@ function drawGame() {
 function updateSnake() {
     direction = { ...nextDirection };
     
-    // ИСПРАВЛЕНО: правильное обращение к голове змейки
     const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
     
     if (gameMode === 'portal') {
@@ -257,7 +256,7 @@ function updateSnake() {
 
 // Проверка столкновений
 function checkCollision() {
-    const head = snake[0]; // ИСПРАВЛЕНО: правильное обращение к голове змейки
+    const head = snake[0];
     
     if (gameMode !== 'portal') {
         if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
@@ -382,10 +381,14 @@ function togglePause() {
     }
 }
 
-// Управление клавиатурой
+// ИСПРАВЛЕНО: Управление клавиатурой с корректными названиями клавиш
 document.addEventListener('keydown', (e) => {
-    if (e.code === 'Space' || e.key === 'Escape') {
+    // Предотвращаем стандартное поведение для клавиш управления
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'KeyW', 'KeyA', 'KeyS', 'KeyD', 'Space'].includes(e.code)) {
         e.preventDefault();
+    }
+    
+    if (e.code === 'Space' || e.key === 'Escape') {
         if (!gameStarted) {
             startGame();
         } else {
@@ -396,21 +399,22 @@ document.addEventListener('keydown', (e) => {
     
     if (!gameRunning || gamePaused) return;
     
-    switch (e.key.toLowerCase()) {
-        case 'arrowup':
-        case 'w':
+    // Используем e.code для более надежного определения клавиш
+    switch (e.code) {
+        case 'ArrowUp':
+        case 'KeyW':
             if (direction.y === 0) nextDirection = { x: 0, y: -1 };
             break;
-        case 'arrowdown':
-        case 's':
+        case 'ArrowDown':
+        case 'KeyS':
             if (direction.y === 0) nextDirection = { x: 0, y: 1 };
             break;
-        case 'arrowleft':
-        case 'a':
+        case 'ArrowLeft':
+        case 'KeyA':
             if (direction.x === 0) nextDirection = { x: -1, y: 0 };
             break;
-        case 'arrowright':
-        case 'd':
+        case 'ArrowRight':
+        case 'KeyD':
             if (direction.x === 0) nextDirection = { x: 1, y: 0 };
             break;
     }
