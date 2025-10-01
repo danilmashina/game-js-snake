@@ -212,7 +212,8 @@ function drawGame() {
 function updateSnake() {
     direction = { ...nextDirection };
     
-    const head = { x: snake.x + direction.x, y: snake.y + direction.y };
+    // ИСПРАВЛЕНО: правильное обращение к голове змейки
+    const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
     
     if (gameMode === 'portal') {
         if (head.x < 0) head.x = tileCount - 1;
@@ -256,7 +257,7 @@ function updateSnake() {
 
 // Проверка столкновений
 function checkCollision() {
-    const head = snake;
+    const head = snake[0]; // ИСПРАВЛЕНО: правильное обращение к голове змейки
     
     if (gameMode !== 'portal') {
         if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
